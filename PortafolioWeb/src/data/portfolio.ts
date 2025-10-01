@@ -6,7 +6,7 @@ export const personalInfo: PersonalInfo = {
   email: 'andreycubillo69@gmail.com',
   location: 'Pérez Zeledón, Costa Rica',
   bio: 'Estudiante de Ingeniería en Sistemas con conocimientos en desarrollo web y desarrollo móvil. Motivada para aplicar habilidades técnicas en proyectos reales y contribuir a la creación de soluciones digitales. Aspira a convertirse en experto en seguridad informática y Inteligencia artificial.',
-  github: 'https://github.com/roilancubillo',
+  github: 'https://github.com/RoilanCubilloMeza',
   linkedin: 'https://www.linkedin.com/in/roilan-cubillo-717983253/',
 };
 
