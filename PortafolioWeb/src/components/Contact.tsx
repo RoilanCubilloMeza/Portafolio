@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef, memo } from 'react';
 import { Mail, MapPin, GraduationCap, Award, Github, Linkedin } from 'lucide-react';
 import { personalInfo, education, certifications } from '../data/portfolio';
+import { useResponsiveInView } from '../hooks/useResponsiveInView';
 
 export const Contact = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useResponsiveInView(ref);
 
   return (
     <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>

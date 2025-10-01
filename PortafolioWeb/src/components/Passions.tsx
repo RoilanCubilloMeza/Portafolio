@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef, memo } from 'react';
 import { achievements, passions } from '../data/portfolio';
+import { useResponsiveInView } from '../hooks/useResponsiveInView';
 
 export const Passions = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useResponsiveInView(ref);
 
   return (
     <section id="passions" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-950 relative overflow-hidden" ref={ref}>

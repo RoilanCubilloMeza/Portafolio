@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef, memo } from 'react';
 import { skills } from '../data/portfolio';
+import { useResponsiveInView } from '../hooks/useResponsiveInView';
 
 export const Skills = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useResponsiveInView(ref);
 
   const categories = ['Frontend', 'Backend', 'Móvil', 'Otros'];
   const categoryColors = {

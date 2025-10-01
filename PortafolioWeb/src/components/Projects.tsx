@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
 import { useRef, useState, memo } from 'react';
 import { MapPin, Calendar, Building2, X } from 'lucide-react';
 import { projects } from '../data/portfolio';
 import type { Project as ProjectType } from '../types';
+import { useResponsiveInView } from '../hooks/useResponsiveInView';
 
 export const Projects = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useResponsiveInView(ref);
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
 
   return (
