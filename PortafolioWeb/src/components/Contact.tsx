@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import { Mail, MapPin, GraduationCap, Award, Github, Linkedin } from 'lucide-react';
 import { personalInfo, education, certifications } from '../data/portfolio';
 
-export const Contact = () => {
+export const Contact = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>
@@ -17,7 +17,7 @@ export const Contact = () => {
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
         >
           📞 Contacto
@@ -28,7 +28,7 @@ export const Contact = () => {
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
             className="glass rounded-xl md:rounded-2xl p-6 md:p-8"
           >
             <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100">
@@ -91,7 +91,7 @@ export const Contact = () => {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
             className="glass rounded-xl md:rounded-2xl p-6 md:p-8"
           >
             <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100 flex items-center gap-2">
@@ -117,7 +117,7 @@ export const Contact = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
           className="glass rounded-2xl p-8"
         >
           <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100 flex items-center gap-2">
@@ -129,8 +129,9 @@ export const Contact = () => {
             {certifications.map((cert, index) => (
               <motion.div
                 key={index}
-                whileHover={{ scale: 1.02, y: -3 }}
-                className="bg-gradient-to-r from-amber-900/40 to-orange-900/40 rounded-xl p-4 md:p-6 border border-amber-700/50 hover:border-amber-600/70 transition-all"
+                whileHover={{ scale: 1.02, y: -2 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="bg-gradient-to-r from-amber-900/40 to-orange-900/40 rounded-xl p-4 md:p-6 border border-amber-700/50 hover:border-amber-600/70 transition-all duration-300"
               >
                 <h4 className="text-base md:text-lg font-bold text-slate-100 mb-1 md:mb-2">
                   {cert.title}
@@ -146,14 +147,15 @@ export const Contact = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
           className="mt-8 md:mt-12 text-center px-4"
         >
           <motion.a
             href={`mailto:${personalInfo.email}`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold shadow-xl hover:shadow-2xl transition-shadow"
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold shadow-xl hover:shadow-2xl transition-shadow duration-300"
           >
             ✉️ Enviar Mensaje
           </motion.a>
@@ -161,4 +163,4 @@ export const Contact = () => {
       </div>
     </section>
   );
-};
+});

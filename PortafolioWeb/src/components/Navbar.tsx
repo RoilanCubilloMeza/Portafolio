@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { Menu, X } from 'lucide-react';
 
-export const Navbar = () => {
+export const Navbar = memo(() => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,8 +27,8 @@ export const Navbar = () => {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-xl ${
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-xl ${
         isScrolled
           ? 'bg-slate-900/95 border-b border-slate-800 shadow-2xl py-4'
           : 'bg-slate-900/30 py-6'
@@ -39,8 +39,8 @@ export const Navbar = () => {
           {/* Logo */}
           <motion.a
             href="#"
-            whileHover={{ scale: 1.1, rotate: 360 }}
-            transition={{ duration: 0.6 }}
+            whileHover={{ scale: 1.08, rotate: 360 }}
+            transition={{ duration: 0.4 }}
             className="text-2xl font-bold gradient-text"
           >
             RC
@@ -101,4 +101,4 @@ export const Navbar = () => {
       </div>
     </motion.nav>
   );
-};
+});

@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, memo } from 'react';
 import { MapPin, Calendar, Building2, X } from 'lucide-react';
 import { projects } from '../data/portfolio';
 import type { Project as ProjectType } from '../types';
 
-export const Projects = () => {
+export const Projects = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
 
   return (
@@ -19,7 +19,7 @@ export const Projects = () => {
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
         >
           💼 Proyectos Destacados
@@ -31,8 +31,15 @@ export const Projects = () => {
               key={project.id}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: index * 0.1, 
+                ease: "easeOut",
+                type: "spring",
+                stiffness: 300,
+                damping: 20
+              }}
+              whileHover={{ y: -8, scale: 1.02 }}
               onClick={() => setSelectedProject(project)}
               className="glass rounded-xl md:rounded-2xl p-5 md:p-6 cursor-pointer card-hover"
             >
@@ -75,12 +82,43 @@ export const Projects = () => {
                 )}
               </div>
 
-              <div className="mt-4 text-blue-400 font-semibold flex items-center gap-2 text-sm md:text-base">
-                Ver más →
+              <div className="mt-4 text-blue-400 font-semibold flex items-center gap-2 text-sm md:text-base group-hover:gap-3 transition-all">
+                <span>Ver más</span>
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  →
+                </motion.span>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Mensaje motivacional */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-slate-400 text-sm md:text-base mb-4 font-medium">
+            🚀 Cada proyecto es una oportunidad de aprendizaje y crecimiento
+          </p>
+          <motion.a
+            href="#skills"
+            whileHover={{ scale: 1.05 }}
+            className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+          >
+            Conoce mis habilidades técnicas
+            <motion.span
+              animate={{ y: [0, 3, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ↓
+            </motion.span>
+          </motion.a>
+        </motion.div>
       </div>
 
       {/* Modal de proyecto */}
@@ -162,4 +200,4 @@ export const Projects = () => {
       )}
     </section>
   );
-};
+});

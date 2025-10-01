@@ -6,10 +6,12 @@ import { Passions } from './components/Passions';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
+import { ProgressBar } from './components/ProgressBar';
 
 function App() {
   return (
     <div className="min-h-screen">
+      <ProgressBar />
       <Navbar />
       <Hero />
       <About />

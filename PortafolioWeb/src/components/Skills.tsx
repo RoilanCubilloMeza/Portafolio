@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import { skills } from '../data/portfolio';
 
-export const Skills = () => {
+export const Skills = memo(() => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const categories = ['Frontend', 'Backend', 'Móvil', 'Otros'];
   const categoryColors = {
@@ -24,7 +24,7 @@ export const Skills = () => {
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
         >
           🛠️ Habilidades Técnicas
@@ -38,8 +38,8 @@ export const Skills = () => {
                 key={category}
                 initial={{ opacity: 0, x: catIndex % 2 === 0 ? -50 : 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: catIndex % 2 === 0 ? -50 : 50 }}
-                transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-                whileHover={{ scale: 1.02, y: -5 }}
+                transition={{ duration: 0.4, delay: catIndex * 0.08, ease: "easeOut" }}
+                whileHover={{ scale: 1.02, y: -4 }}
                 className="glass rounded-xl md:rounded-2xl p-5 md:p-6"
               >
                 <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100">
@@ -62,8 +62,8 @@ export const Skills = () => {
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
                           transition={{
-                            duration: 1,
-                            delay: catIndex * 0.1 + index * 0.1,
+                            duration: 0.8,
+                            delay: catIndex * 0.08 + index * 0.08,
                             ease: "easeOut",
                           }}
                           className={`h-full bg-gradient-to-r ${categoryColors[category as keyof typeof categoryColors]} rounded-full`}
@@ -82,19 +82,41 @@ export const Skills = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-12 glass rounded-2xl p-8 text-center"
+          className="mt-8 md:mt-12 glass rounded-xl md:rounded-2xl p-6 md:p-8 text-center"
         >
-          <div className="text-5xl mb-4">💡</div>
-          <h3 className="text-2xl font-bold mb-3 gradient-text">
+          <motion.div 
+            className="text-4xl md:text-5xl mb-3 md:mb-4"
+            animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
+          >
+            💡
+          </motion.div>
+          <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-3 gradient-text">
             Siempre Aprendiendo
           </h3>
-          <p className="text-slate-300 max-w-2xl mx-auto font-medium">
+          <p className="text-sm md:text-base text-slate-300 max-w-2xl mx-auto font-medium mb-6">
             Me mantengo constantemente actualizado con las últimas tecnologías y mejores 
             prácticas en desarrollo de software. Mi objetivo es seguir creciendo como 
             desarrollador y especializarme en ciberseguridad e inteligencia artificial.
           </p>
+
+          {/* CTA para ver logros */}
+          <motion.a
+            href="#passions"
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-sm md:text-base font-bold shadow-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300"
+          >
+            Ver mis logros
+            <motion.span
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              ✨
+            </motion.span>
+          </motion.a>
         </motion.div>
       </div>
     </section>
   );
-};
+});

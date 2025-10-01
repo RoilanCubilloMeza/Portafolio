@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 import { Mail, MapPin, Github, Linkedin } from 'lucide-react';
 import { personalInfo } from '../data/portfolio';
 
-export const Hero = () => {
+export const Hero = memo(() => {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
       {/* Fondo animado con círculos - Responsivo */}
@@ -16,7 +17,7 @@ export const Hero = () => {
             y: [0, 30, 0],
           }}
           transition={{
-            duration: 8,
+            duration: 6,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -30,7 +31,7 @@ export const Hero = () => {
             y: [0, -50, 0],
           }}
           transition={{
-            duration: 10,
+            duration: 7,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -42,7 +43,7 @@ export const Hero = () => {
             opacity: [0.1, 0.3, 0.1],
           }}
           transition={{
-            duration: 6,
+            duration: 5,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -147,7 +148,7 @@ export const Hero = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 px-4"
+            className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 px-4 mb-20 md:mb-28"
           >
             {personalInfo.github && (
               <motion.a
@@ -176,10 +177,8 @@ export const Hero = () => {
               </motion.a>
             )}
           </motion.div>
-
-          {/* Scroll indicator eliminado */}
         </div>
-      </div>
+        </div>
     </section>
   );
-};
+});
