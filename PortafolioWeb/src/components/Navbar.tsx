@@ -25,13 +25,13 @@ export const Navbar = () => {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur ${
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-xl ${
         isScrolled
-          ? 'bg-slate-900/95 border-b border-slate-800 shadow-lg py-4'
-          : 'bg-slate-900/50 py-6'
+          ? 'bg-slate-900/95 border-b border-slate-800 shadow-2xl py-4'
+          : 'bg-slate-900/30 py-6'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -39,7 +39,8 @@ export const Navbar = () => {
           {/* Logo */}
           <motion.a
             href="#"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.1, rotate: 360 }}
+            transition={{ duration: 0.6 }}
             className="text-2xl font-bold gradient-text"
           >
             RC
@@ -53,11 +54,12 @@ export const Navbar = () => {
                 href={item.href}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1 }}
-                className="text-slate-200 hover:text-blue-400 font-medium transition-colors"
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ scale: 1.15, y: -2 }}
+                className="text-slate-200 hover:text-blue-400 font-medium transition-all duration-300 relative group"
               >
                 {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300"></span>
               </motion.a>
             ))}
           </div>

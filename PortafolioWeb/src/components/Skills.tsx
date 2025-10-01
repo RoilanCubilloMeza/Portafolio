@@ -16,18 +16,21 @@ export const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 px-4 bg-slate-900" ref={ref}>
-      <div className="container mx-auto max-w-6xl">
+    <section id="skills" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>
+      {/* Efecto de fondo */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 via-slate-900 to-slate-900 pointer-events-none"></div>
+      
+      <div className="container mx-auto max-w-6xl relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold mb-12 text-center gradient-text"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
         >
           🛠️ Habilidades Técnicas
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {categories.map((category, catIndex) => {
             const categorySkills = skills.filter(s => s.category === category);
             return (
@@ -36,9 +39,10 @@ export const Skills = () => {
                 initial={{ opacity: 0, x: catIndex % 2 === 0 ? -50 : 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: catIndex % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-                className="glass rounded-2xl p-6"
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="glass rounded-xl md:rounded-2xl p-5 md:p-6"
               >
-                <h3 className="text-2xl font-bold mb-6 text-slate-100">
+                <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100">
                   {category}
                 </h3>
 
@@ -46,14 +50,14 @@ export const Skills = () => {
                   {categorySkills.map((skill, index) => (
                     <div key={skill.name}>
                       <div className="flex justify-between mb-2">
-                        <span className="font-bold text-slate-300">
+                        <span className="font-bold text-slate-300 text-sm md:text-base">
                           {skill.name}
                         </span>
-                        <span className="text-slate-400 font-bold">
+                        <span className="text-slate-400 font-bold text-sm md:text-base">
                           {skill.level}%
                         </span>
                       </div>
-                      <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-2.5 md:h-3 bg-slate-700 rounded-full overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}

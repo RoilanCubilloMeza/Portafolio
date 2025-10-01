@@ -29,7 +29,7 @@ export const Footer = () => {
           </div>
 
           <p className="text-slate-500 mt-4 text-sm">
-            © {currentYear} Roilan Cubillo. Todos los derechos reservados.
+            © {currentYear} Roilan Cubillo.
           </p>
         </motion.div>
       </div>

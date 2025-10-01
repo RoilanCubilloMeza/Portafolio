@@ -9,31 +9,84 @@
 
 @layer components {
   .glass {
-    @apply bg-slate-800/90 backdrop-blur-md border border-slate-700/50 shadow-2xl;
+    @apply bg-slate-800/90 backdrop-blur-xl border border-slate-700/50 shadow-2xl;
+    @apply transition-all duration-500 ease-out;
   }
   
   .gradient-text {
     @apply bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease-in-out infinite;
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20;
+    @apply transition-all duration-500 ease-out;
+    @apply hover:scale-[1.03] hover:shadow-2xl hover:shadow-blue-500/30;
+    @apply hover:-translate-y-2;
   }
 }
 
 /* Scroll suave */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Mejoras de responsividad */
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 60px;
+  }
+}
+
+/* Optimización de fuentes para móviles */
+@media (max-width: 768px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
 }
 
 /* Animación para elementos que entran en el viewport */
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Animación del gradiente */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animación de brillo suave */
+@keyframes soft-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* Entrada suave para las secciones */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
