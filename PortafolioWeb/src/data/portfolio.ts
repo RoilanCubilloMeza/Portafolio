@@ -2,10 +2,10 @@ import type { PersonalInfo, Project, Skill, Achievement, Certification, Passion 
 
 export const personalInfo: PersonalInfo = {
   name: 'ROILAN CUBILLO MEZA',
-  title: 'Estudiante de Ingeniería en Sistemas | Desarrollo Web',
+  title: 'Ingeniero de Software Full-Stack | IA & Ciberseguridad',
   email: 'andreycubillo69@gmail.com',
   location: 'Pérez Zeledón, Costa Rica',
-  bio: 'Estudiante de Ingeniería en Sistemas con conocimientos en desarrollo web y desarrollo móvil. Motivada para aplicar habilidades técnicas en proyectos reales y contribuir a la creación de soluciones digitales. Aspira a convertirse en experto en seguridad informática y Inteligencia artificial.',
+  bio: 'Ingeniero de Software en formación con +2 años de experiencia construyendo aplicaciones web y móviles de alto impacto. He desarrollado sistemas en producción con React, Next.js, Node.js y Python — desde plataformas educativas hasta herramientas con Inteligencia Artificial. Mi obsesión: crear software que resuelva problemas reales con código limpio, escalable y seguro.',
   github: 'https://github.com/RoilanCubilloMeza',
   linkedin: 'https://www.linkedin.com/in/roilan-cubillo-717983253/',
 };

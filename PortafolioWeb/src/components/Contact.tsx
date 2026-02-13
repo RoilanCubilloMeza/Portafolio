@@ -29,6 +29,13 @@ export const Contact = memo(() => {
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold gradient-text leading-tight">
             Contacto
           </h2>
+          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-emerald-400 text-xs sm:text-sm font-semibold">Disponible — respondo en &lt;24h</span>
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
@@ -155,16 +162,39 @@ export const Contact = memo(() => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-10 md:mt-14 text-center"
+          className="mt-10 md:mt-14 glass rounded-2xl md:rounded-3xl p-8 md:p-10 text-center border border-slate-700/60 relative overflow-hidden"
         >
-          <motion.a
-            href={`mailto:${personalInfo.email}`}
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl text-base md:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
-          >
-            ✉️ Enviar Mensaje
-          </motion.a>
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
+          <h3 className="text-xl md:text-2xl font-bold gradient-text mb-3">
+            ¿Listo para crear algo increíble?
+          </h3>
+          <p className="text-sm text-slate-400 mb-6 max-w-lg mx-auto">
+            Envíame un mensaje y empecemos a construir la solución que necesitas.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <motion.a
+              href={`mailto:${personalInfo.email}`}
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl text-base md:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 shimmer-btn relative overflow-hidden"
+            >
+              <Mail className="w-5 h-5" />
+              Enviar Mensaje
+            </motion.a>
+            {personalInfo.linkedin && (
+              <motion.a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center justify-center gap-2 bg-slate-800/80 text-slate-200 border border-slate-700/60 px-8 py-4 rounded-xl text-base md:text-lg font-bold shadow-lg hover:shadow-xl hover:border-blue-500/30 transition-all duration-300"
+              >
+                <Linkedin className="w-5 h-5" />
+                LinkedIn
+              </motion.a>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>

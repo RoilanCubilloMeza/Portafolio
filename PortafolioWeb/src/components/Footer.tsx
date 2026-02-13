@@ -18,7 +18,7 @@ export const Footer = memo(() => {
   ];
 
   const stats = [
-    { icon: '💼', label: 'Proyectos', value: '10+' },
+    { icon: '💼', label: 'Proyectos en Prod.', value: '3' },
     { icon: '🛠️', label: 'Tecnologías', value: '15+' },
     { icon: '🏆', label: 'Años Exp.', value: '2+' },
   ];

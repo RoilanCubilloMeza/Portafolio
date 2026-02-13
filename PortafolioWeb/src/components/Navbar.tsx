@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, memo } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Send } from 'lucide-react';
 
 export const Navbar = memo(() => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,7 +17,7 @@ export const Navbar = memo(() => {
     { label: 'Sobre Mí', href: '#about' },
     { label: 'Proyectos', href: '#projects' },
     { label: 'Habilidades', href: '#skills' },
-    { label: 'Pasiones', href: '#passions' },
+    { label: 'Logros', href: '#passions' },
     { label: 'Contacto', href: '#contact' },
   ];
 
@@ -52,12 +52,25 @@ export const Navbar = memo(() => {
                 initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.08, duration: 0.4 }}
-                className="relative px-4 py-2 text-sm text-slate-300 hover:text-white font-medium transition-colors duration-200 rounded-lg hover:bg-slate-800/50 group"
+                className="relative px-3.5 py-2 text-sm text-slate-300 hover:text-white font-medium transition-colors duration-200 rounded-lg hover:bg-slate-800/50 group"
               >
                 {item.label}
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-3/4 transition-all duration-300 rounded-full" />
               </motion.a>
             ))}
+            {/* CTA en el navbar */}
+            <motion.a
+              href="#contact"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              whileHover={{ scale: 1.05, y: -1 }}
+              whileTap={{ scale: 0.95 }}
+              className="ml-3 px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-md hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-300 flex items-center gap-1.5"
+            >
+              <Send className="w-3.5 h-3.5" />
+              Hablemos
+            </motion.a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -92,6 +105,16 @@ export const Navbar = memo(() => {
                   {item.label}
                 </motion.a>
               ))}
+              <motion.a
+                href="#contact"
+                initial={{ opacity: 0, x: -15 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="block mt-2 py-3 text-sm text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl px-4 font-bold text-center shadow-lg"
+              >
+                Hablemos
+              </motion.a>
             </motion.div>
           )}
         </AnimatePresence>

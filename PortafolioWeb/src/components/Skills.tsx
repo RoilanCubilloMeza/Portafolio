@@ -105,25 +105,29 @@ export const Skills = memo(() => {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-10 md:mt-16 glass rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border border-slate-700/60"
+          className="mt-10 md:mt-16 glass rounded-2xl md:rounded-3xl p-6 md:p-10 border border-slate-700/60 relative overflow-hidden"
         >
-          <h3 className="text-xl md:text-2xl font-bold mb-3 gradient-text">
-            Siempre Aprendiendo
-          </h3>
-          <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto mb-6 leading-relaxed">
-            Me mantengo constantemente actualizado con las últimas tecnologías y mejores
-            prácticas en desarrollo de software. Mi objetivo es seguir creciendo como
-            desarrollador y especializarme en ciberseguridad e inteligencia artificial.
-          </p>
-          <motion.a
-            href="#passions"
-            whileHover={{ scale: 1.04, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-sm font-bold shadow-lg hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300"
-          >
-            Ver mis logros
-            <span>→</span>
-          </motion.a>
+          {/* Brillo decorativo */}
+          <div className="absolute top-0 right-0 w-40 h-40 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none" />
+          <div className="relative z-10 text-center">
+            <h3 className="text-xl md:text-2xl font-bold mb-3 gradient-text">
+              Aprendizaje Continuo
+            </h3>
+            <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+              Domino <span className="text-slate-200 font-semibold">15+ tecnologías</span> y agrego nuevas cada mes.
+              Mi objetivo: ser referente en <span className="text-emerald-400 font-semibold">ciberseguridad</span> e
+              <span className="text-blue-400 font-semibold"> inteligencia artificial</span>.
+            </p>
+            <motion.a
+              href="#passions"
+              whileHover={{ scale: 1.04, y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-sm font-bold shadow-lg hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300"
+            >
+              Ver mis logros
+              <span>→</span>
+            </motion.a>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -7,6 +7,7 @@ import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { Navbar } from './components/Navbar';
 import { ProgressBar } from './components/ProgressBar';
+import { FloatingCTA } from './components/FloatingCTA';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Passions />
       <Contact />
       <Footer />
+      <FloatingCTA />
     </div>
   );
 }
