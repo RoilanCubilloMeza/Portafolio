@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, memo } from 'react';
 import { Menu, X } from 'lucide-react';
 
@@ -7,10 +7,8 @@ export const Navbar = memo(() => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -27,77 +25,76 @@ export const Navbar = memo(() => {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-xl ${
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-slate-900/95 border-b border-slate-800 shadow-2xl py-4'
-          : 'bg-slate-900/30 py-6'
+          ? 'bg-slate-950/80 backdrop-blur-2xl border-b border-slate-800/60 shadow-[0_4px_30px_-10px_rgba(0,0,0,0.5)] py-3'
+          : 'bg-transparent py-5'
       }`}
     >
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.a
             href="#"
-            whileHover={{ scale: 1.08, rotate: 360 }}
-            transition={{ duration: 0.4 }}
-            className="text-2xl font-bold gradient-text"
+            whileHover={{ scale: 1.05 }}
+            className="text-xl font-extrabold gradient-text tracking-tight"
           >
             RC
           </motion.a>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-1">
             {menuItems.map((item, index) => (
               <motion.a
                 key={item.label}
                 href={item.href}
-                initial={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: -15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ scale: 1.15, y: -2 }}
-                className="text-slate-200 hover:text-blue-400 font-medium transition-all duration-300 relative group"
+                transition={{ delay: index * 0.08, duration: 0.4 }}
+                className="relative px-4 py-2 text-sm text-slate-300 hover:text-white font-medium transition-colors duration-200 rounded-lg hover:bg-slate-800/50 group"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-full transition-all duration-300"></span>
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 group-hover:w-3/4 transition-all duration-300 rounded-full" />
               </motion.a>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-300"
-            >
-              {isMobileMenuOpen ? <X /> : <Menu />}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2.5 hover:bg-slate-800/60 rounded-xl transition-colors text-slate-300"
+          >
+            {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 glass rounded-2xl p-4"
-          >
-            {menuItems.map((item, index) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-3 text-slate-300 hover:text-blue-400 hover:bg-slate-700 rounded-lg px-4 transition-colors"
-              >
-                {item.label}
-              </motion.a>
-            ))}
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25 }}
+              className="md:hidden mt-3 bg-slate-900/95 backdrop-blur-xl rounded-2xl p-3 border border-slate-800/60 shadow-xl overflow-hidden"
+            >
+              {menuItems.map((item, index) => (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  initial={{ opacity: 0, x: -15 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.06 }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block py-3 text-sm text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-xl px-4 transition-all duration-200 font-medium"
+                >
+                  {item.label}
+                </motion.a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );

@@ -9,49 +9,57 @@ export const Contact = memo(() => {
   const isInView = useResponsiveInView(ref);
 
   return (
-    <section id="contact" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>
-      {/* Efecto de fondo */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900 to-slate-900 pointer-events-none"></div>
-      
+    <section id="contact" className="py-20 md:py-32 px-4 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900 to-slate-900" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[120px]" />
+      </div>
+
       <div className="container mx-auto max-w-6xl relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-center mb-14 md:mb-20"
         >
-          📞 Contacto
-        </motion.h2>
+          <span className="inline-block text-sm md:text-base font-semibold text-emerald-400 tracking-widest uppercase mb-3">
+            Conectar
+          </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold gradient-text leading-tight">
+            Contacto
+          </h2>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* Información de contacto */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-            className="glass rounded-xl md:rounded-2xl p-6 md:p-8"
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+            className="glass rounded-2xl md:rounded-3xl p-6 md:p-8 border border-slate-700/60"
           >
-            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100">
+            <h3 className="text-xl md:text-2xl font-bold mb-5 text-slate-100">
               Información de Contacto
             </h3>
 
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-3">
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-blue-900/30 rounded-xl hover:bg-blue-900/50 transition-colors group border border-blue-700/30"
+                className="flex items-center gap-4 p-4 bg-blue-600/10 rounded-xl hover:bg-blue-600/15 transition-all duration-300 group border border-blue-700/20 hover:border-blue-600/40"
               >
-                <Mail className="w-5 h-5 md:w-6 md:h-6 text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                <Mail className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs md:text-sm text-slate-400 font-bold">Email</p>
-                  <p className="font-bold text-slate-200 text-sm md:text-base truncate">{personalInfo.email}</p>
+                  <p className="text-xs text-slate-500 font-semibold">Email</p>
+                  <p className="font-semibold text-slate-200 text-sm truncate">{personalInfo.email}</p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-purple-900/30 rounded-xl border border-purple-700/30">
-                <MapPin className="w-5 h-5 md:w-6 md:h-6 text-purple-400 flex-shrink-0" />
+              <div className="flex items-center gap-4 p-4 bg-purple-600/10 rounded-xl border border-purple-700/20">
+                <MapPin className="w-5 h-5 text-purple-400 flex-shrink-0" />
                 <div>
-                  <p className="text-xs md:text-sm text-slate-400 font-bold">Ubicación</p>
-                  <p className="font-bold text-slate-200 text-sm md:text-base">{personalInfo.location}</p>
+                  <p className="text-xs text-slate-500 font-semibold">Ubicación</p>
+                  <p className="font-semibold text-slate-200 text-sm">{personalInfo.location}</p>
                 </div>
               </div>
 
@@ -60,12 +68,12 @@ export const Contact = memo(() => {
                   href={personalInfo.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-slate-700/50 rounded-xl hover:bg-slate-700 transition-colors group border border-slate-600/30"
+                  className="flex items-center gap-4 p-4 bg-slate-700/30 rounded-xl hover:bg-slate-700/50 transition-all duration-300 group border border-slate-600/20 hover:border-slate-500/40"
                 >
-                  <Github className="w-5 h-5 md:w-6 md:h-6 text-slate-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <Github className="w-5 h-5 text-slate-400 group-hover:scale-110 transition-transform flex-shrink-0" />
                   <div>
-                    <p className="text-xs md:text-sm text-slate-400 font-bold">GitHub</p>
-                    <p className="font-bold text-slate-200 text-sm md:text-base">Ver perfil</p>
+                    <p className="text-xs text-slate-500 font-semibold">GitHub</p>
+                    <p className="font-semibold text-slate-200 text-sm">Ver perfil</p>
                   </div>
                 </a>
               )}
@@ -75,12 +83,12 @@ export const Contact = memo(() => {
                   href={personalInfo.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-blue-900/30 rounded-xl hover:bg-blue-900/50 transition-colors group border border-blue-700/30"
+                  className="flex items-center gap-4 p-4 bg-blue-600/10 rounded-xl hover:bg-blue-600/15 transition-all duration-300 group border border-blue-700/20 hover:border-blue-600/40"
                 >
-                  <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" />
+                  <Linkedin className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform flex-shrink-0" />
                   <div>
-                    <p className="text-xs md:text-sm text-slate-400 font-bold">LinkedIn</p>
-                    <p className="font-bold text-slate-200 text-sm md:text-base">Conectar</p>
+                    <p className="text-xs text-slate-500 font-semibold">LinkedIn</p>
+                    <p className="font-semibold text-slate-200 text-sm">Conectar</p>
                   </div>
                 </a>
               )}
@@ -89,24 +97,24 @@ export const Contact = memo(() => {
 
           {/* Educación */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-            className="glass rounded-xl md:rounded-2xl p-6 md:p-8"
+            initial={{ opacity: 0, x: 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
+            className="glass rounded-2xl md:rounded-3xl p-6 md:p-8 border border-slate-700/60"
           >
-            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100 flex items-center gap-2">
-              <GraduationCap className="w-6 h-6 md:w-7 md:h-7" />
+            <h3 className="text-xl md:text-2xl font-bold mb-5 text-slate-100 flex items-center gap-2">
+              <GraduationCap className="w-6 h-6" />
               Educación
             </h3>
 
-            <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 rounded-xl p-5 md:p-6 border border-blue-700/50">
-              <h4 className="text-lg md:text-xl font-bold text-slate-100 mb-2">
+            <div className="bg-gradient-to-br from-blue-600/15 to-purple-600/10 rounded-2xl p-6 border border-blue-700/30">
+              <h4 className="text-lg font-bold text-slate-100 mb-2">
                 {education.degree}
               </h4>
-              <p className="text-blue-400 font-bold mb-1 text-sm md:text-base">
+              <p className="text-blue-400 font-semibold mb-1 text-sm">
                 {education.institution}
               </p>
-              <p className="text-slate-400 text-xs md:text-sm font-bold">
+              <p className="text-slate-500 text-xs font-semibold">
                 {education.period} • {education.location}
               </p>
             </div>
@@ -115,47 +123,45 @@ export const Contact = memo(() => {
 
         {/* Certificaciones */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
-          className="glass rounded-2xl p-8"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.5, delay: 0.3, ease: 'easeOut' }}
+          className="glass rounded-2xl md:rounded-3xl p-7 md:p-8 border border-slate-700/60"
         >
-          <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100 flex items-center gap-2">
-            <Award className="w-6 h-6 md:w-7 md:h-7" />
+          <h3 className="text-xl md:text-2xl font-bold mb-5 text-slate-100 flex items-center gap-2">
+            <Award className="w-6 h-6" />
             Certificaciones
           </h3>
 
-          <div className="space-y-3 md:space-y-4">
+          <div className="space-y-4">
             {certifications.map((cert, index) => (
               <motion.div
                 key={index}
-                whileHover={{ scale: 1.02, y: -2 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="bg-gradient-to-r from-amber-900/40 to-orange-900/40 rounded-xl p-4 md:p-6 border border-amber-700/50 hover:border-amber-600/70 transition-all duration-300"
+                whileHover={{ y: -2 }}
+                className="bg-gradient-to-r from-amber-600/10 to-orange-600/5 rounded-xl p-5 md:p-6 border border-amber-700/30 hover:border-amber-600/50 transition-all duration-500"
               >
-                <h4 className="text-base md:text-lg font-bold text-slate-100 mb-1 md:mb-2">
+                <h4 className="text-base md:text-lg font-bold text-slate-100 mb-1">
                   {cert.title}
                 </h4>
-                <p className="text-amber-400 font-bold mb-1 md:mb-2 text-sm md:text-base">{cert.issuer}</p>
-                <p className="text-slate-400 font-medium text-sm md:text-base">{cert.description}</p>
+                <p className="text-amber-400 font-semibold mb-2 text-sm">{cert.issuer}</p>
+                <p className="text-slate-400 text-sm leading-relaxed">{cert.description}</p>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* CTA Final - Responsivo */}
+        {/* CTA Final */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.4, delay: 0.4, ease: "easeOut" }}
-          className="mt-8 md:mt-12 text-center px-4"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-10 md:mt-14 text-center"
         >
           <motion.a
             href={`mailto:${personalInfo.email}`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-base md:text-lg font-bold shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl text-base md:text-lg font-bold shadow-xl hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300"
           >
             ✉️ Enviar Mensaje
           </motion.a>

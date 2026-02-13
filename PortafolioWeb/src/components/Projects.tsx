@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useRef, useState, memo } from 'react';
-import { MapPin, Calendar, Building2, X } from 'lucide-react';
+import { MapPin, Calendar, Building2, X, ExternalLink, ChevronRight } from 'lucide-react';
 import { projects } from '../data/portfolio';
 import type { Project as ProjectType } from '../types';
 import { useResponsiveInView } from '../hooks/useResponsiveInView';
@@ -11,109 +11,129 @@ export const Projects = memo(() => {
   const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
 
   return (
-    <section id="projects" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-950 relative overflow-hidden" ref={ref}>
-      {/* Efecto de fondo */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950 pointer-events-none"></div>
-      
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
-        >
-          💼 Proyectos Destacados
-        </motion.h2>
+    <section id="projects" className="py-20 md:py-32 px-4 sm:px-6 bg-slate-950 relative overflow-hidden" ref={ref}>
+      {/* Fondo mejorado */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950" />
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[100px]" />
+      </div>
 
+      <div className="container mx-auto max-w-6xl relative z-10">
+        {/* Encabezado con subtítulo */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-center mb-14 md:mb-20"
+        >
+          <span className="inline-block text-sm md:text-base font-semibold text-blue-400 tracking-widest uppercase mb-3">
+            Portafolio
+          </span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold gradient-text leading-tight">
+            Proyectos Destacados
+          </h2>
+          <p className="mt-4 text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
+            Cada proyecto representa un desafío resuelto y una oportunidad de crecimiento profesional.
+          </p>
+        </motion.div>
+
+        {/* Grid de tarjetas */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ 
-                duration: 0.4, 
-                delay: index * 0.1, 
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 300,
-                damping: 20
+              initial={{ opacity: 0, y: 60 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.15,
+                ease: 'easeOut',
               }}
-              whileHover={{ y: -8, scale: 1.02 }}
+              whileHover={{ y: -6 }}
               onClick={() => setSelectedProject(project)}
-              className="glass rounded-xl md:rounded-2xl p-5 md:p-6 cursor-pointer card-hover"
+              className="group relative glass rounded-2xl md:rounded-3xl p-6 md:p-8 cursor-pointer border border-slate-700/60 hover:border-blue-500/40 transition-all duration-500 hover:shadow-[0_8px_40px_-12px_rgba(59,130,246,0.25)]"
             >
-              <h3 className="text-xl md:text-2xl font-bold text-slate-100 mb-3">
-                {project.title}
-              </h3>
+              {/* Número de proyecto */}
+              <span className="absolute top-5 right-6 text-6xl md:text-7xl font-black text-slate-800/60 select-none leading-none">
+                {String(index + 1).padStart(2, '0')}
+              </span>
 
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-400 font-medium">
-                  <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span className="truncate">{project.company}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-400 font-medium">
-                  <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span>{project.period}</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-400 font-medium">
-                  <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                  <span>{project.location}</span>
-                </div>
-              </div>
+              <div className="relative z-10">
+                <h3 className="text-xl md:text-2xl font-bold text-slate-50 mb-4 pr-14 leading-snug">
+                  {project.title}
+                </h3>
 
-              <p className="text-sm md:text-base text-slate-300 mb-4 line-clamp-3 font-medium">
-                {project.description}
-              </p>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 mb-5 text-slate-400">
+                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium">
+                    <Building2 className="w-3.5 h-3.5 flex-shrink-0 text-blue-400/70" />
+                    <span className="truncate">{project.company}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium">
+                    <Calendar className="w-3.5 h-3.5 flex-shrink-0 text-purple-400/70" />
+                    <span>{project.period}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-medium">
+                    <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-pink-400/70" />
+                    <span>{project.location}</span>
+                  </div>
+                </div>
 
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.slice(0, 4).map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-2.5 py-1 md:px-3 bg-blue-900/50 text-blue-300 rounded-full text-xs md:text-sm font-bold border border-blue-700/50"
-                  >
-                    {tech}
+                <p className="text-sm md:text-base text-slate-300/90 mb-5 line-clamp-2 leading-relaxed">
+                  {project.description}
+                </p>
+
+                {/* Tecnologías */}
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {project.technologies.slice(0, 5).map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 bg-slate-700/60 text-slate-300 rounded-lg text-xs font-semibold border border-slate-600/40 group-hover:border-blue-600/30 group-hover:bg-blue-900/20 group-hover:text-blue-300 transition-all duration-300"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 5 && (
+                    <span className="px-3 py-1 bg-slate-700/40 text-slate-500 rounded-lg text-xs font-semibold">
+                      +{project.technologies.length - 5}
+                    </span>
+                  )}
+                </div>
+
+                {/* Footer de la tarjeta */}
+                <div className="flex items-center justify-between">
+                  <span className="text-blue-400 font-semibold text-sm flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300">
+                    Ver detalles
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </span>
-                ))}
-                {project.technologies.length > 4 && (
-                  <span className="px-2.5 py-1 md:px-3 bg-slate-700 text-slate-300 rounded-full text-xs md:text-sm font-bold">
-                    +{project.technologies.length - 4}
-                  </span>
-                )}
-              </div>
-
-              <div className="mt-4 text-blue-400 font-semibold flex items-center gap-2 text-sm md:text-base group-hover:gap-3 transition-all">
-                <span>Ver más</span>
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  →
-                </motion.span>
+                  {project.demoUrl && (
+                    <span className="flex items-center gap-1.5 text-xs text-emerald-400/80 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Demo disponible
+                    </span>
+                  )}
+                </div>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Mensaje motivacional */}
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-12 text-center"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-14 md:mt-20 text-center"
         >
-          <p className="text-slate-400 text-sm md:text-base mb-4 font-medium">
-            🚀 Cada proyecto es una oportunidad de aprendizaje y crecimiento
-          </p>
           <motion.a
             href="#skills"
-            whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+            whileHover={{ scale: 1.04 }}
+            className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-400 font-semibold transition-colors text-sm md:text-base"
           >
             Conoce mis habilidades técnicas
             <motion.span
-              animate={{ y: [0, 3, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ y: [0, 4, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >
               ↓
             </motion.span>
@@ -121,83 +141,113 @@ export const Projects = memo(() => {
         </motion.div>
       </div>
 
-      {/* Modal de proyecto */}
-      {selectedProject && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedProject(null)}
-        >
+      {/* ─── Modal de proyecto ─── */}
+      <AnimatePresence>
+        {selectedProject && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            onClick={(e) => e.stopPropagation()}
-            className="bg-slate-800 rounded-2xl md:rounded-3xl p-6 md:p-8 max-w-3xl max-h-[90vh] overflow-y-auto relative border border-slate-700 mx-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedProject(null)}
           >
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-4 right-4 md:top-6 md:right-6 p-2 hover:bg-slate-700 rounded-full transition-colors z-10"
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 30 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-7 md:p-10 max-w-3xl w-full max-h-[90vh] overflow-y-auto relative border border-slate-700/70 shadow-2xl"
             >
-              <X className="w-5 h-5 md:w-6 md:h-6 text-slate-300" />
-            </button>
+              {/* Cerrar */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-5 right-5 p-2 hover:bg-slate-700/60 rounded-xl transition-colors z-10"
+              >
+                <X className="w-5 h-5 text-slate-400 hover:text-slate-200 transition-colors" />
+              </button>
 
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-100 mb-4 pr-10 md:pr-12">
-              {selectedProject.title}
-            </h3>
+              {/* Header */}
+              <h3 className="text-2xl md:text-3xl font-extrabold text-slate-50 mb-5 pr-12 leading-tight">
+                {selectedProject.title}
+              </h3>
 
-            <div className="space-y-2 mb-6">
-              <div className="flex items-center gap-2 text-sm md:text-base text-slate-400 font-medium">
-                <Building2 className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
-                <span>{selectedProject.company}</span>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mb-7 text-slate-400">
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <Building2 className="w-4 h-4 text-blue-400/70" />
+                  <span>{selectedProject.company}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <Calendar className="w-4 h-4 text-purple-400/70" />
+                  <span>{selectedProject.period}</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm font-medium">
+                  <MapPin className="w-4 h-4 text-pink-400/70" />
+                  <span>{selectedProject.location}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-sm md:text-base text-slate-400 font-medium">
-                <Calendar className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
-                <span>{selectedProject.period}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm md:text-base text-slate-400 font-medium">
-                <MapPin className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
-                <span>{selectedProject.location}</span>
-              </div>
-            </div>
 
-            <div className="mb-6">
-              <h4 className="text-lg md:text-xl font-bold mb-3 text-slate-100">Descripción</h4>
-              <p className="text-sm md:text-base text-slate-300 leading-relaxed font-medium">
-                {selectedProject.description}
-              </p>
-            </div>
-
-            <div className="mb-6">
-              <h4 className="text-lg md:text-xl font-bold mb-3 text-slate-100">Logros Destacados</h4>
-              <ul className="space-y-2">
-                {selectedProject.achievements.map((achievement, i) => (
-                  <li key={i} className="flex gap-3 text-sm md:text-base text-slate-300 font-medium">
-                    <span className="text-blue-400 font-bold flex-shrink-0">•</span>
-                    <span>{achievement}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-lg md:text-xl font-bold mb-3 text-slate-100">Tecnologías</h4>
-              <div className="flex flex-wrap gap-2">
-                {selectedProject.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full text-xs md:text-sm font-medium shadow-lg"
-                  >
-                    {tech}
-                  </span>
-                ))}
+              {/* Descripción */}
+              <div className="mb-7">
+                <h4 className="font-bold mb-2 text-slate-200 tracking-widest uppercase text-xs">
+                  Descripción
+                </h4>
+                <p className="text-sm md:text-base text-slate-300 leading-relaxed">
+                  {selectedProject.description}
+                </p>
               </div>
-            </div>
+
+              {/* Logros */}
+              <div className="mb-7">
+                <h4 className="font-bold mb-3 text-slate-200 tracking-widest uppercase text-xs">
+                  Logros Destacados
+                </h4>
+                <ul className="space-y-2.5">
+                  {selectedProject.achievements.map((achievement, i) => (
+                    <li key={i} className="flex gap-3 text-sm md:text-base text-slate-300">
+                      <span className="mt-1.5 w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex-shrink-0" />
+                      <span>{achievement}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Tecnologías */}
+              <div className="mb-8">
+                <h4 className="font-bold mb-3 text-slate-200 tracking-widest uppercase text-xs">
+                  Tecnologías
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-4 py-1.5 bg-gradient-to-r from-blue-600/80 to-purple-600/80 text-white rounded-full text-xs md:text-sm font-semibold shadow-lg shadow-blue-500/10"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* BOTÓN VER DEMO */}
+              {selectedProject.demoUrl && (
+                <motion.a
+                  href={selectedProject.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="flex items-center justify-center gap-3 w-full py-4 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold text-base md:text-lg shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 transition-shadow duration-300"
+                >
+                  <ExternalLink className="w-5 h-5" />
+                  Ver Demo en Vivo
+                </motion.a>
+              )}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 });

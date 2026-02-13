@@ -17,6 +17,7 @@ export interface Project {
   description: string;
   technologies: string[];
   achievements: string[];
+  demoUrl?: string;
 }
 
 export interface Skill {

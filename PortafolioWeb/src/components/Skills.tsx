@@ -8,65 +8,88 @@ export const Skills = memo(() => {
   const isInView = useResponsiveInView(ref);
 
   const categories = ['Frontend', 'Backend', 'Móvil', 'Otros'];
-  const categoryColors = {
-    Frontend: 'from-blue-500 to-cyan-500',
-    Backend: 'from-green-500 to-emerald-500',
-    Móvil: 'from-orange-500 to-amber-500',
-    Otros: 'from-purple-500 to-pink-500',
+  const categoryIcons: Record<string, string> = {
+    Frontend: '🎨',
+    Backend: '⚙️',
+    Móvil: '📱',
+    Otros: '🧩',
+  };
+  const categoryColors: Record<string, string> = {
+    Frontend: 'from-blue-500 to-cyan-400',
+    Backend: 'from-emerald-500 to-teal-400',
+    Móvil: 'from-orange-500 to-amber-400',
+    Otros: 'from-purple-500 to-pink-400',
+  };
+  const categoryBorderColors: Record<string, string> = {
+    Frontend: 'hover:border-blue-500/40',
+    Backend: 'hover:border-emerald-500/40',
+    Móvil: 'hover:border-orange-500/40',
+    Otros: 'hover:border-purple-500/40',
   };
 
   return (
-    <section id="skills" className="py-16 md:py-24 px-4 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>
-      {/* Efecto de fondo */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 via-slate-900 to-slate-900 pointer-events-none"></div>
-      
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 md:mb-12 text-center gradient-text"
-        >
-          🛠️ Habilidades Técnicas
-        </motion.h2>
+    <section id="skills" className="py-16 md:py-32 px-3 sm:px-6 bg-slate-900 relative overflow-hidden" ref={ref}>
+      {/* Fondo */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/8 via-slate-900 to-slate-900" />
+        <div className="absolute top-1/3 right-0 w-[400px] h-[400px] bg-emerald-600/5 rounded-full blur-[120px]" />
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+      <div className="container mx-auto max-w-6xl relative z-10 min-w-0">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="text-center mb-10 md:mb-20"
+        >
+          <span className="inline-block text-sm md:text-base font-semibold text-purple-400 tracking-widest uppercase mb-3">
+            Stack Técnico
+          </span>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold gradient-text leading-tight">
+            Habilidades Técnicas
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 min-w-0">
           {categories.map((category, catIndex) => {
             const categorySkills = skills.filter(s => s.category === category);
             return (
               <motion.div
                 key={category}
-                initial={{ opacity: 0, x: catIndex % 2 === 0 ? -50 : 50 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: catIndex % 2 === 0 ? -50 : 50 }}
-                transition={{ duration: 0.4, delay: catIndex * 0.08, ease: "easeOut" }}
-                whileHover={{ scale: 1.02, y: -4 }}
-                className="glass rounded-xl md:rounded-2xl p-5 md:p-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                transition={{ duration: 0.5, delay: catIndex * 0.1, ease: 'easeOut' }}
+                className={`glass rounded-2xl md:rounded-3xl p-4 sm:p-5 md:p-8 border border-slate-700/60 ${categoryBorderColors[category]} transition-all duration-500 hover:shadow-lg min-w-0 overflow-hidden`}
               >
-                <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-slate-100">
-                  {category}
-                </h3>
+                <div className="flex items-center gap-2.5 mb-5 md:mb-6 min-w-0">
+                  <span className="text-xl md:text-2xl shrink-0">{categoryIcons[category]}</span>
+                  <h3 className="text-lg md:text-2xl font-bold text-slate-100 truncate">
+                    {category}
+                  </h3>
+                </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 md:space-y-5 min-w-0">
                   {categorySkills.map((skill, index) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between mb-2">
-                        <span className="font-bold text-slate-300 text-sm md:text-base">
+                    <div key={skill.name} className="min-w-0">
+                      <div className="flex items-center justify-between gap-2 mb-2 min-w-0">
+                        <span className="font-semibold text-slate-300 text-sm min-w-0 truncate">
                           {skill.name}
                         </span>
-                        <span className="text-slate-400 font-bold text-sm md:text-base">
+                        <span className="text-slate-500 font-semibold text-xs tabular-nums shrink-0 w-9 text-right">
                           {skill.level}%
                         </span>
                       </div>
-                      <div className="h-2.5 md:h-3 bg-slate-700 rounded-full overflow-hidden">
+                      <div className="h-2 bg-slate-700/60 rounded-full overflow-hidden w-full">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
                           transition={{
-                            duration: 0.8,
-                            delay: catIndex * 0.08 + index * 0.08,
-                            ease: "easeOut",
+                            duration: 1,
+                            delay: catIndex * 0.1 + index * 0.06,
+                            ease: 'easeOut',
                           }}
-                          className={`h-full bg-gradient-to-r ${categoryColors[category as keyof typeof categoryColors]} rounded-full`}
+                          className={`h-full bg-gradient-to-r ${categoryColors[category]} rounded-full shadow-sm`}
                         />
                       </div>
                     </div>
@@ -77,43 +100,29 @@ export const Skills = memo(() => {
           })}
         </div>
 
-        {/* Card de motivación */}
+        {/* Card motivacional */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-8 md:mt-12 glass rounded-xl md:rounded-2xl p-6 md:p-8 text-center"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-10 md:mt-16 glass rounded-2xl md:rounded-3xl p-6 md:p-10 text-center border border-slate-700/60"
         >
-          <motion.div 
-            className="text-4xl md:text-5xl mb-3 md:mb-4"
-            animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
-          >
-            💡
-          </motion.div>
-          <h3 className="text-xl md:text-2xl font-bold mb-2 md:mb-3 gradient-text">
+          <h3 className="text-xl md:text-2xl font-bold mb-3 gradient-text">
             Siempre Aprendiendo
           </h3>
-          <p className="text-sm md:text-base text-slate-300 max-w-2xl mx-auto font-medium mb-6">
-            Me mantengo constantemente actualizado con las últimas tecnologías y mejores 
-            prácticas en desarrollo de software. Mi objetivo es seguir creciendo como 
+          <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+            Me mantengo constantemente actualizado con las últimas tecnologías y mejores
+            prácticas en desarrollo de software. Mi objetivo es seguir creciendo como
             desarrollador y especializarme en ciberseguridad e inteligencia artificial.
           </p>
-
-          {/* CTA para ver logros */}
           <motion.a
             href="#passions"
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full text-sm md:text-base font-bold shadow-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300"
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl text-sm font-bold shadow-lg hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300"
           >
             Ver mis logros
-            <motion.span
-              animate={{ x: [0, 5, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              ✨
-            </motion.span>
+            <span>→</span>
           </motion.a>
         </motion.div>
       </div>

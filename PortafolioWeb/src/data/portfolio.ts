@@ -27,6 +27,7 @@ export const projects: Project[] = [
       'Optimicé el rendimiento y seguridad del sistema, mejorando la velocidad de carga y reduciendo vulnerabilidades comunes',
       'Colaboré con otros compañeros para la planificación y validación del sistema, respetando los tiempos y objetivos del proyecto',
     ],
+    demoUrl: 'https://escuela-cerros.vercel.app/',
   },
   {
     id: '2',
@@ -43,6 +44,22 @@ export const projects: Project[] = [
       'Aplicación móvil sincronizada en tiempo real con la web (WebSockets + scroll infinito)',
       'Desplegado con AWS Amplify. Control de versiones limpio con Git y GitHub',
     ],
+  },
+  {
+    id: '3',
+    title: 'IA para Comparación de Vehículos',
+    company: 'Proyecto personal',
+    period: '2026 - Actualidad',
+    location: 'Remoto',
+    description: 'Plataforma inteligente para comparar vehículos y recomendar opciones según necesidades del usuario, con chat asistido, comparación múltiple y análisis de información técnica desde distintas fuentes. Demo en línea: https://vsvehicle-frontend.onrender.com',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Python', 'API REST', 'Render'],
+    achievements: [
+      'Desarrollé un frontend moderno con Next.js para chat inteligente y comparación de vehículos',
+      'Implementé servicios de IA en Python para recomendaciones, análisis y soporte contextual',
+      'Integré módulos de extracción y procesamiento de datos técnicos para enriquecer respuestas',
+      'Desplegué la aplicación web en Render para acceso público y pruebas en tiempo real',
+    ],
+    demoUrl: 'https://vsvehicle-frontend.onrender.com',
   },
 ];
 
